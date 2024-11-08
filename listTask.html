@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>To Do App</title>
+    <!-- Link para o CSS do Bootstrap 4, framework que ajuda a estilizar e estruturar o layout de forma responsiva -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Inclusão do jQuery (necessário para algumas funcionalidades do Bootstrap, como o colapso do menu) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <!-- Inclusão do Popper.js, usado principalmente para posicionar tooltips e popovers no Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <!-- Inclusão do Bootstrap JavaScript, necessário para adicionar comportamentos dinâmicos ao site -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- Inclusão do da fonte Nunito para personalização da aplicação -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Inclusão do arquivo css para estilização além do bootstrap-->
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+
+<body>
+    <!-- Barra de navegação superior com estilo do Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <!-- Título da aplicação que aparece na barra de navegação -->
+        <a class="navbar-brand font-weight-bold" href="#">To Do App</a>
+        <!-- Botão que aparece em dispositivos móveis para expandir/colapsar o menu -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Seção colapsável do menu, contendo os links de navegação -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <!-- Link ativo para a página principal -->
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Main</a>
+                </li>
+                <!-- Link para a página de gerenciamento de tarefas -->
+                <li class="nav-item">
+                    <a class="nav-link" href="listTask.html">Management</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+        <!-- Modal ativado quando clicar em editar com todos os campos preenchidos com a tarefa a ser editada -->
+    <div class="modal" tabindex="-1" role="dialog" id="myModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title font-weight-bold">Edit Task</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3 justify-content-center align-items-center mb-4 pb-2">
+                    <div class="col-md-4 mb-3">
+                        <select class="form-control" id="year">
+                            <option value="">Year</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <select class="form-control" id="month">
+                            <option value="">Month</option>
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <input type="text" class="form-control" placeholder="Day" id="day" />
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <select class="form-control" id="type">
+                            <option value="">Type</option> 
+                            <option value="1">Studies</option>
+                            <option value="2">Work</option>
+                            <option value="3">Home</option>
+                            <option value="4">Health</option>
+                            <option value="5">Family</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-12 mb-3">
+                        <input type="text" class="form-control" placeholder="Description"
+                            id="description" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary" onclick="saveTask()">Save changes</button>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Seção principal  -->
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12"> 
+                    <div class="card rounded-3">
+                        <div class="card-body p-4"> 
+                            <h4 class="text-center my-3 pb-3 ">To Do List</h4>
+                            <!-- Formulário para pesquisa de tarefas, usando o sistema de grids do Bootstrap-->
+
+                            <!-- com todos os campos de pesquisa um ao lado do outro sem a necessidade de preencher todos os campos de pesquisa-->
+                            <form class="row g-3 justify-content-center align-items-center mb-4 pb-2">
+                                
+                                <div class="col-md-2 mb-3">
+                                    <select class="form-control" id="searchYear">
+                                        <option value="">Year</option>
+                                        <option value="2024">2024</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2 mb-3">
+                                    <select class="form-control" id="searchMonth">
+                                        <option value="">Month</option>
+                                        <option value="1">January</option>
+                                        <option value="2">February</option>
+                                        <option value="3">March</option>
+                                        <option value="4">April</option>
+                                        <option value="5">May</option>
+                                        <option value="6">June</option>
+                                        <option value="7">July</option>
+                                        <option value="8">August</option>
+                                        <option value="9">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <input type="text" class="form-control" placeholder="Day" id="searchDay" />
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <select class="form-control" id="searchType">
+                                        <option value="">Type</option> <!-- Opção vazia padrão -->
+                                        <option value="1">Studies</option>
+                                        <option value="2">Work</option>
+                                        <option value="3">Home</option>
+                                        <option value="4">Health</option>
+                                        <option value="5">Family</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3 mb-3">
+                                    <input type="text" class="form-control" placeholder="Description"
+                                        id="searchDescription" />
+                                </div>
+
+                                <!-- Botão de pesquisa de tarefas e onde será criado o botão de remover os filtros selecionados-->
+                                <div class="col-md-12 mb-3 text-right" id="btnSearch">
+                                    <button type="button" data-mdb-button-init data-mdb-ripple-init
+                                        class="btn btn-outline-info cleanFilters" onclick="searchTasks()">Search
+                                    </button>
+                                </div>
+                            </form>
+
+                             <!-- filtros de status de tarefa onde o all  vem selecionado por padrão-->
+                            <div class="mb-3 btn-group btn-group-toggle">
+                                <button class="filter-btn btn btn-light active-filter" id="filter-all">All</button>
+                                <button class="filter-btn btn btn-light" id="filter-completed">Completed</button>
+                                <button class="filter-btn btn btn-light" id="filter-not-completed">Not Completed</button>
+                            </div>
+
+                            <!-- Tabela responsiva que exibirá as tarefas carregadas da base de dados -->
+                            <div class="table-responsive-sm">
+                                <table class="table mb-4 table-hover">
+                                    <thead>
+                                        <!-- Cabeçalho da tabela, com três colunas: Data, Tipo e Descrição -->
+                                        <tr>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Type</th>
+                                            <th scope="col">Description</th>
+                                        </tr>
+                                    </thead>
+                                    <!-- Corpo da tabela onde as tarefas serão listadas -->
+                                    <tbody id="listTasks"></tbody> <!-- Este tbody será preenchido dinamicamente via JavaScript -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
