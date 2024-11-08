@@ -1,7 +1,7 @@
 # TodoApp - Gerenciador de Tarefas
 
 Este projeto é uma aplicação simples de lista de tarefas (todoApp) desenvolvida utilizando HTML, CSS (Bootstrap) e JavaScript. A aplicação permite ao usuário criar, editar, excluir e visualizar tarefas, com persistência de dados utilizando o `localStorage`. Isso garante que as tarefas não sejam perdidas ao recarregar a página.
-
+`Projeto desenvolvido para formação fullstack +prati e codifica.`
 ## Funcionalidades
 
 - **Criar Tarefa**: O usuário pode adicionar novas tarefas à lista.
